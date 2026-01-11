@@ -6,7 +6,7 @@
     "start": "node server.js"
   },
   "dependencies": {
-    "swisseph": "^0.5.17",
+    "swisseph-node": "^1.0.6",
     "moment-timezone": "^0.5.45",
     "express": "^4.19.2"
   }
