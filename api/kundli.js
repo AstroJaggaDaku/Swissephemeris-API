@@ -1,3 +1,5 @@
+export const config = { runtime: "nodejs" };
+
 import SwissEph from "../public/swisseph.js";
 
 let swe;
@@ -5,24 +7,25 @@ let swe;
 async function load() {
   if (!swe) {
     swe = await SwissEph({
-      locateFile: () => "/swisseph.wasm"
+      locateFile: (f) => new URL(`../public/${f}`, import.meta.url).href
     });
     swe.swe_set_ephe_path("/ephe");
   }
   return swe;
 }
 
-export default async function handler(req) {
-  const { y,m,d,h } = await req.json();
+export default async function handler(req, res) {
+  try {
+    const { y,m,d,h } = req.body;
 
-  const swe = await load();
+    const swe = await load();
+    const jd = swe.swe_julday(y,m,d,h,false);
 
-  const jd = swe.swe_julday(y,m,d,h,false);
+    const sun = swe.swe_calc_ut(jd, swe.SE_SUN, swe.SEFLG_SWIEPH);
+    const moon = swe.swe_calc_ut(jd, swe.SE_MOON, swe.SEFLG_SWIEPH);
 
-  const sun = swe.swe_calc_ut(jd, swe.SE_SUN, swe.SEFLG_SWIEPH);
-  const moon = swe.swe_calc_ut(jd, swe.SE_MOON, swe.SEFLG_SWIEPH);
-
-  return new Response(JSON.stringify({ jd, sun, moon }), {
-    headers:{ "Content-Type":"application/json" }
-  });
+    res.status(200).json({ jd, sun, moon });
+  } catch (e) {
+    res.status(500).json({ error: e.toString() });
+  }
 }
