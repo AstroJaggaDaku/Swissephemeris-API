@@ -1,4 +1,8 @@
 {
   "buildCommand": "npm install",
-  "functions": {}
+  "functions": {
+    "api/kundli.js": {
+      "memory": 1024
+    }
+  }
 }
