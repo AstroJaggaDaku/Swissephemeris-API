@@ -1,7 +1,3 @@
-export const config = {
-  runtime: "nodejs"
-};
-
 import SwissEph from "../public/swisseph.js";
 
 let swe;
@@ -16,14 +12,17 @@ async function load() {
   return swe;
 }
 
-export default async function handler(req, res) {
-  const { y, m, d, h } = req.body;
+export default async function handler(req) {
+  const { y,m,d,h } = await req.json();
 
   const swe = await load();
+
   const jd = swe.swe_julday(y,m,d,h,false);
 
   const sun = swe.swe_calc_ut(jd, swe.SE_SUN, swe.SEFLG_SWIEPH);
   const moon = swe.swe_calc_ut(jd, swe.SE_MOON, swe.SEFLG_SWIEPH);
 
-  res.status(200).json({ jd, sun, moon });
+  return new Response(JSON.stringify({ jd, sun, moon }), {
+    headers:{ "Content-Type":"application/json" }
+  });
 }
