@@ -1,8 +1,4 @@
 {
-  "name": "jd-swiss",
   "type": "module",
-  "dependencies": {
-    "swisseph": "^0.5.17",
-    "moment-timezone": "^0.5.45"
-  }
+  "dependencies": {}
 }
