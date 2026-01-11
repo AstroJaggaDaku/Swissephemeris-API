@@ -1,7 +1,7 @@
 {
   "functions": {
     "api/kundli.js": {
-      "maxDuration": 10
+      "runtime": "edge"
     }
   }
 }
