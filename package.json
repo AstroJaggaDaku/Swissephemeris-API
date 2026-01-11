@@ -1,6 +1,13 @@
 {
+  "name": "jd-swiss-backend",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "postinstall": "node scripts/install-swiss.js"
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "swisseph": "^0.5.17",
+    "moment-timezone": "^0.5.45",
+    "express": "^4.19.2"
   }
 }
