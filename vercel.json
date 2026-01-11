@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "api/kundli.js": {
+      "maxDuration": 10
+    }
+  }
+}
