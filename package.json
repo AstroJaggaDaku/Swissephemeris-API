@@ -1,4 +1,6 @@
 {
   "type": "module",
-  "dependencies": {}
+  "scripts": {
+    "postinstall": "node scripts/install-swiss.js"
+  }
 }
